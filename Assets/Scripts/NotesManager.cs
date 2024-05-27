@@ -34,10 +34,11 @@ public class NotesManager : MonoBehaviour
     public List<float> NotesTime = new List<float>(); //ノーツが判定線と重なる時間
     public List<GameObject> NotesObj = new List<GameObject>(); //ノーツ自体
 
-    [SerializeField] private float notesSpeed;
+    [SerializeField] float notesSpeed;
+    [SerializeField] float selfOffset;
     [SerializeField] GameObject noteObj; //ノーツのプレハブ
 
-    private void OnEnable()
+    private void Start()
     {
         noteNum = 0;
         songName = "Shangri-La of Neko";
@@ -55,28 +56,17 @@ public class NotesManager : MonoBehaviour
 
         for (int i = 0; i < noteNum; i++)
         {
-            float timePerBeat = 60 / (float)inputJson.BPM; //1拍(1ビート)にかかる時間
-            float beatNum = inputJson.notes[i].num / (float)inputJson.notes[i].LPB; //ノーツが何拍目にあるか
-            float time = beatNum * timePerBeat + inputJson.offset * 0.0001f; //ノーツが判定ラインにたどり着くまでに要する時間
+            float timePerBeat = 60f / (float)inputJson.BPM; //1拍(1ビート)にかかる時間
+            //ノーツがなぜか瞬間移動するため、4足さないとズレる。
+            float beatNum = (inputJson.notes[i].num) / (float)inputJson.notes[i].LPB; //ノーツが何拍目にあるか。
+            float time = beatNum * timePerBeat + selfOffset * 0.01f; ; //ノーツが判定ラインにたどり着くまでに要する時間
 
             NotesTime.Add(time);
             LaneNum.Add(inputJson.notes[i].block);
             NoteType.Add(inputJson.notes[i].type);
 
             float y = NotesTime[i] * notesSpeed - 4;
-            NotesObj.Add(Instantiate(noteObj, new Vector2((inputJson.notes[i].block - 2.5f) * 2, y), Quaternion.identity));
+            NotesObj.Add(Instantiate(noteObj, new Vector3((inputJson.notes[i].block - 2.5f) * 2, y, 0), Quaternion.identity));
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

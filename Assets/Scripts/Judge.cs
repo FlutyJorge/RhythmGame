@@ -16,6 +16,11 @@ public class Judge : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GManager.instance.isStart || notesMana.NotesTime.Count == 0)
+        {
+            return;
+        }
+
         JudgeInput(KeyCode.D, 0);
         JudgeInput(KeyCode.F, 1);
         JudgeInput(KeyCode.G, 2);
@@ -23,7 +28,7 @@ public class Judge : MonoBehaviour
         JudgeInput(KeyCode.J, 4);
         JudgeInput(KeyCode.K, 5);
 
-        if (Time.time > notesMana.NotesTime[0] + 0.15f)
+        if (Time.time > notesMana.NotesTime[0] + 0.15f + GManager.instance.startTime)
         {
             Message(3);
             DeleteData();
@@ -33,11 +38,12 @@ public class Judge : MonoBehaviour
 
     private void JudgeInput(KeyCode keyCode, int laneNum)
     {
+
         if (Input.GetKeyDown(keyCode))
         {
             if (notesMana.LaneNum[0] == laneNum)
             {
-                JudgeTiming(GetABS(Time.time - notesMana.NotesTime[0]));
+                JudgeTiming(GetABS(Time.time - (notesMana.NotesTime[0] + GManager.instance.startTime)));
             }
         }
     }
