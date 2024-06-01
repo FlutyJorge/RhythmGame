@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NotesMovement : MonoBehaviour
+public class NoteMovement : MonoBehaviour
 {
-    public float notesSpeed;
+    private float noteSpeed;
     private bool isStarted = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        //Debug.Log(transform.position);
+        noteSpeed = GManager.instance.noteSpeed;
     }
 
     // Update is called once per frame
@@ -24,9 +24,7 @@ public class NotesMovement : MonoBehaviour
 
         if (isStarted)
         {
-            transform.position += Vector3.down * Time.deltaTime * notesSpeed;
+            transform.position += Vector3.down * Time.deltaTime * noteSpeed;
         }
-
-        //transform.position += Vector3.down * Time.deltaTime * notesSpeed;
     }
 }

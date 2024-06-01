@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Judge : MonoBehaviour
 {
     [SerializeField] GameObject[] MessageObj;
-    [SerializeField] NotesManager notesMana;
+    [SerializeField] NoteManager noteMana;
+    [SerializeField] TextMeshProUGUI comboText;
+    [SerializeField] TextMeshProUGUI scoreText;
 
     // Start is called before the first frame update
     void Start()
@@ -16,7 +19,7 @@ public class Judge : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GManager.instance.isStart || notesMana.NotesTime.Count == 0)
+        if (!GManager.instance.isStart || noteMana.NotesTime.Count == 0)
         {
             return;
         }
@@ -28,11 +31,17 @@ public class Judge : MonoBehaviour
         JudgeInput(KeyCode.J, 4);
         JudgeInput(KeyCode.K, 5);
 
-        if (Time.time > notesMana.NotesTime[0] + 0.15f + GManager.instance.startTime)
+        if (noteMana.NotesTime.Count == 0)
+        {
+            return;
+        }
+
+        if (Time.time > noteMana.NotesTime[0] + 0.15f + GManager.instance.startTime)
         {
             Message(3);
+            GManager.instance.ChangeScore("Miss");
+            ShowScore();
             DeleteData();
-            Debug.Log("サイテー");
         }
     }
 
@@ -41,9 +50,9 @@ public class Judge : MonoBehaviour
 
         if (Input.GetKeyDown(keyCode))
         {
-            if (notesMana.LaneNum[0] == laneNum)
+            if (noteMana.LaneNum[0] == laneNum)
             {
-                JudgeTiming(GetABS(Time.time - (notesMana.NotesTime[0] + GManager.instance.startTime)));
+                JudgeTiming(GetABS(Time.time - (noteMana.NotesTime[0] + GManager.instance.startTime)));
             }
         }
     }
@@ -54,18 +63,24 @@ public class Judge : MonoBehaviour
         {
             Debug.Log("Perfect");
             Message(0);
+            GManager.instance.ChangeScore("Perfect");
+            ShowScore();
             DeleteData();
         }
         else if (timeLag <= 0.1f)
         {
             Debug.Log("Great");
             Message(1);
+            GManager.instance.ChangeScore("Great");
+            ShowScore();
             DeleteData();
         }
         else if (timeLag <= 0.15f)
         {
-            Debug.Log("Good");
+            Debug.Log("Bad");
             Message(2);
+            GManager.instance.ChangeScore("Bad");
+            ShowScore();
             DeleteData();
         }
     }
@@ -84,13 +99,19 @@ public class Judge : MonoBehaviour
 
     private void DeleteData()
     {
-        notesMana.NotesTime.RemoveAt(0);
-        notesMana.LaneNum.RemoveAt(0);
-        notesMana.NoteType.RemoveAt(0);
+        noteMana.NotesTime.RemoveAt(0);
+        noteMana.LaneNum.RemoveAt(0);
+        noteMana.NoteType.RemoveAt(0);
     }
 
-    void Message(int judge)
+    private void Message(int judge)
     {
-        Instantiate(MessageObj[judge], new Vector2((notesMana.LaneNum[0] - 2.5f) * 2, -3.5f), Quaternion.identity);
+        Instantiate(MessageObj[judge], new Vector2((noteMana.LaneNum[0] - 2.5f) * 2, -3.5f), Quaternion.identity);
+    }
+
+    private void ShowScore()
+    {
+        comboText.SetText(GManager.instance.combo.ToString());
+        scoreText.SetText(GManager.instance.nominalScore.ToString());
     }
 }

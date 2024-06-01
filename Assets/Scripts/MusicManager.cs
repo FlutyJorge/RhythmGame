@@ -24,20 +24,10 @@ public class MusicManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isPlayed)
         {
-            Debug.Log("Song");
             GManager.instance.isStart = true;
             GManager.instance.startTime = Time.time;
             isPlayed = true;
             audioS.Play();
         }
-
-        //if (!isPlayed)
-        //{
-        //    Debug.Log("Song");
-        //    GManager.instance.isStart = true;
-        //    GManager.instance.startTime = Time.time;
-        //    isPlayed = true;
-        //    audioS.Play();
-        //}
     }
 }
