@@ -1127,9 +1127,11 @@ MonoBehaviour:
   LaneNum: 
   NoteType: 
   NotesTime: []
-  NotesObj: []
+  nNote: []
+  lNote: []
   selfOffset: 9
-  noteObj: {fileID: 8536041178975433515, guid: f3cdedb9abdad78449649fd939df6e69, type: 3}
+  nNotePrefab: {fileID: 8536041178975433515, guid: f3cdedb9abdad78449649fd939df6e69, type: 3}
+  lNotePrefab: {fileID: 3737724724687384239, guid: f85fd60e4ebfebf448467fb81e13ae65, type: 3}
 --- !u!4 &1760964625
 Transform:
   m_ObjectHideFlags: 0

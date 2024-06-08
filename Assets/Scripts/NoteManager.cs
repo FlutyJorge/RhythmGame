@@ -10,11 +10,11 @@ public class Data
     public int maxBlock;
     public int BPM;
     public int offset;
-    public Note[] notes;
+    public Notes[] notes;
 }
 
 [Serializable]
-public class Note
+public class Notes
 {
     public int type;
     public int num;
@@ -32,11 +32,14 @@ public class NoteManager : MonoBehaviour
     public List<int> LaneNum = new List<int>(); //何番のレーンにノーツが落ちてくるか
     public List<int> NoteType = new List<int>(); //何ノーツか
     public List<float> NotesTime = new List<float>(); //ノーツが判定線と重なる時間
-    public List<GameObject> NotesObj = new List<GameObject>(); //ノーツ自体
+    public List<GameObject> nNote = new List<GameObject>(); //ノーマルノーツ
+    public List<GameObject> lNote = new List<GameObject>(); //ロングノーツ
+    private LineRenderer lineren;
 
     private float noteSpeed;
     [SerializeField] float selfOffset;
-    [SerializeField] GameObject noteObj; //ノーツのプレハブ
+    [SerializeField] GameObject nNotePrefab; //ノーマルノーツのプレハブ
+    [SerializeField] GameObject lNotePrefab; //ロングノーツのプレハブ
 
     private void Start()
     {
@@ -56,6 +59,7 @@ public class NoteManager : MonoBehaviour
         noteNum = inputJson.notes.Length;
         GManager.instance.realMaxScore = noteNum * 5;
 
+        //ノーツの生成
         for (int i = 0; i < noteNum; i++)
         {
             float timePerBeat = 60f / (float)inputJson.BPM; //1拍(1ビート)にかかる時間
@@ -67,7 +71,22 @@ public class NoteManager : MonoBehaviour
             NoteType.Add(inputJson.notes[i].type);
 
             float y = NotesTime[i] * noteSpeed - 4;
-            NotesObj.Add(Instantiate(noteObj, new Vector3((inputJson.notes[i].block - 2.5f) * 2, y, 0), Quaternion.identity));
+
+            if (NoteType[i] == 1)
+            {
+                nNote.Add(Instantiate(nNotePrefab, new Vector3((inputJson.notes[i].block - 2.5f) * 2, y, 0), Quaternion.identity));
+            }
+            else if (NoteType[i] == 2)
+            {
+                lNote.Add(Instantiate(lNotePrefab, new Vector3((inputJson.notes[i].block - 2.5f) * 2, y, 0), Quaternion.identity));
+            }
+            else
+            {
+                Debug.Log("ノーツ生成エラー");
+            }
         }
+
+        //ロングノーツの帯部分の生成
+        //for (int i = 0; i )
     }
 }
