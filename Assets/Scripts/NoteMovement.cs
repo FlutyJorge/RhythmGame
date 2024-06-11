@@ -18,7 +18,6 @@ public class NoteMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("Movement");
             isStarted = true;
         }
 

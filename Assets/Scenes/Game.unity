@@ -489,7 +489,7 @@ GameObject:
   - component: {fileID: 363761001}
   - component: {fileID: 363761000}
   m_Layer: 0
-  m_Name: Judge
+  m_Name: JudgeManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -515,6 +515,7 @@ MonoBehaviour:
   noteMana: {fileID: 1760964624}
   comboText: {fileID: 546814918}
   scoreText: {fileID: 1377090303}
+  lNoteTrigger: 000000000000
 --- !u!4 &363761001
 Transform:
   m_ObjectHideFlags: 0
@@ -1129,6 +1130,12 @@ MonoBehaviour:
   NotesTime: []
   nNote: []
   lNote: []
+  holdTiming0: []
+  holdTiming1: []
+  holdTiming2: []
+  holdTiming3: []
+  holdTiming4: []
+  holdTiming5: []
   selfOffset: 9
   nNotePrefab: {fileID: 8536041178975433515, guid: f3cdedb9abdad78449649fd939df6e69, type: 3}
   lNotePrefab: {fileID: 3737724724687384239, guid: f85fd60e4ebfebf448467fb81e13ae65, type: 3}
