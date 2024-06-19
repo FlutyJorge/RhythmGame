@@ -30,18 +30,12 @@ public class NoteManager : MonoBehaviour
     private string songName;
 
     public List<int> LaneNum = new List<int>(); //何番のレーンにノーツが落ちてくるか
-    public List<int> NoteType = new List<int>(); //何ノーツか
+    public List<int> NoteType = new List<int>(); //1:ノーマルノーツ, 2:ホールドノーツ, 3:ロングノーツの始点, 4:ロングノーツの終点
     public List<float> NotesTime = new List<float>(); //ノーツが判定線と重なる時間
     public List<GameObject> nNote = new List<GameObject>(); //ノーマルノーツ
-    public List<GameObject> lNote = new List<GameObject>(); //ロングノーツ
-    //ロングノーツの長押し判定タイミングを格納。多次元リストは実現困難。
-    public List<List<float>> holdTiming = new List<List<float>>();
-    public List<float> holdTiming0 = new List<float>();
-    public List<float> holdTiming1 = new List<float>();
-    public List<float> holdTiming2 = new List<float>();
-    public List<float> holdTiming3 = new List<float>();
-    public List<float> holdTiming4 = new List<float>();
-    public List<float> holdTiming5 = new List<float>();
+    public List<GameObject> lNote3 = new List<GameObject>(); //ロングノーツの始点
+    public List<GameObject> lNote4 = new List<GameObject>(); //ロングノーツの終点
+    //public List<LineRenderer> lineRen = new List<LineRenderer>();
 
     private float noteSpeed;
     [SerializeField] float selfOffset;
@@ -53,13 +47,6 @@ public class NoteManager : MonoBehaviour
         noteSpeed = GManager.instance.noteSpeed;
         noteNum = 0;
         songName = "Shangri-La of Neko";
-
-        holdTiming.Add(holdTiming0);
-        holdTiming.Add(holdTiming1);
-        holdTiming.Add(holdTiming2);
-        holdTiming.Add(holdTiming3);
-        holdTiming.Add(holdTiming4);
-        holdTiming.Add(holdTiming5);
 
         Load(songName);
     }
@@ -89,48 +76,48 @@ public class NoteManager : MonoBehaviour
 
             if (NoteType[i] == 1)
             {
-                nNote.Add(Instantiate(nNotePrefab, new Vector3((inputJson.notes[i].block - 2.5f) * 2, y, 0), Quaternion.identity));
+                nNote.Add(Instantiate(nNotePrefab, new Vector3((LaneNum[i] - 2.5f) * 2, y, 0), Quaternion.identity));
             }
-            else if (NoteType[i] == 2 || NoteType[i] == 3)
+            else if (NoteType[i] == 3)
             {
-                lNote.Add(Instantiate(lNotePrefab, new Vector3((inputJson.notes[i].block - 2.5f) * 2, y, 0), Quaternion.identity));
+                lNote3.Add(Instantiate(lNotePrefab, new Vector3((LaneNum[i] - 2.5f) * 2, y, 0), Quaternion.identity));
+            }
+            else if (NoteType[i] == 4)
+            {
+                lNote4.Add(Instantiate(lNotePrefab, new Vector3((LaneNum[i] - 2.5f) * 2, y, 0), Quaternion.identity));
             }
         }
 
-        //ロングノーツの長押し部分の判定生成
+        //ロングノーツの帯部分生成
+
+        int lNote3Counter = 0;
         for (int i = 0; i < noteNum; ++i)
         {
-            if (NoteType[i] != 2)
+            if (NoteType[i] != 3)
             {
                 continue;
             }
 
-            Debug.Log("ロングノーツの先端発見");
-            for (int j = i + 1; j < noteNum; ++j)
+            GameObject startObj = lNote3[lNote3Counter];
+            LineRenderer lineRen = startObj.GetComponent<LineRenderer>();
+            for (int j = i; j < noteNum; ++j)
             {
-                if (NoteType[j] != 3 || LaneNum[j] != LaneNum[i])
+                if (NoteType[j] == 4 && LaneNum[j] == LaneNum[i])
                 {
-                    continue;
-                }
+                    //ローカル座標を用いないと移動できない
+                    Vector3 startPos = new Vector3(0, 0, 0);
+                    float endPosY = NotesTime[j] * noteSpeed - 4;
+                    //プレハブのYスケールが0.4のため、2.5をかけて1に戻している
+                    Vector3 endPos = (new Vector3(0, endPosY, 0) - new Vector3(0, startObj.transform.position.y, 0)) * 2.5f;
 
-                Debug.Log("終点発見");
-                int buttonDownArea = inputJson.notes[j].num - inputJson.notes[i].num;
-                for (int k = 1; k < buttonDownArea; ++k)
-                {
-                    float beatNumL = (inputJson.notes[i].num + k) / (float)inputJson.notes[i].LPB;
-                    float timeL = beatNumL * timePerBeat + selfOffset * 0.01f;
-                    holdTiming[LaneNum[i]].Add(timeL);
+                    lineRen.SetPosition(0, startPos);
+                    lineRen.SetPosition(1, endPos);
+                    ++lNote3Counter;
+                    break;
                 }
             }
         }
 
-        //実質Maxスコアの設定
-        int holdTimingAllCount = 0;
-        for (int i = 0; i <= 5; ++i)
-        {
-            holdTimingAllCount += holdTiming[i].Count;
-        }
-        Debug.Log(holdTimingAllCount);
-        GManager.instance.realMaxScore = (noteNum + holdTimingAllCount) * 5;
+        GManager.instance.realMaxScore = noteNum * 5;
     }
 }
