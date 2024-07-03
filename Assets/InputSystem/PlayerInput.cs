@@ -188,6 +188,78 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=1)"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BarLeft"",
+                    ""type"": ""Value"",
+                    ""id"": ""f0fb0685-acf4-4d34-82f4-d9aeaf991bf3"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""BarRight"",
+                    ""type"": ""Value"",
+                    ""id"": ""2f3dbc8c-1a6c-48bf-a390-9a6227b8afeb"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""TapL"",
+                    ""type"": ""Button"",
+                    ""id"": ""8287bc62-1535-49ad-97db-92e8630eaa5a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TapR"",
+                    ""type"": ""Button"",
+                    ""id"": ""e13bdbc3-7151-401e-901e-54f27901305c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HoldL"",
+                    ""type"": ""Button"",
+                    ""id"": ""ca4af56f-bbad-4121-965a-bd2598749fe4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HoldR"",
+                    ""type"": ""Button"",
+                    ""id"": ""9ead50d2-eea3-41bb-a6ac-c4ec6a067092"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UpL"",
+                    ""type"": ""Button"",
+                    ""id"": ""6b99db46-d40b-4529-a29c-beac32981401"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UpR"",
+                    ""type"": ""Button"",
+                    ""id"": ""92e183e8-07e0-4634-a318-a167a83c64fc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -586,6 +658,94 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Up5"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""60026d4d-82a7-4518-88d6-e372846bec26"",
+                    ""path"": ""<DualShockGamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BarLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f76b9298-0dd8-48d8-a745-4f240577528d"",
+                    ""path"": ""<DualShockGamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BarRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9f4b5418-022c-42f9-a1d7-b00212e7cd7a"",
+                    ""path"": ""<DualShockGamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TapL"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""23f132bd-5bc4-4b6a-b8c1-a57e9521238d"",
+                    ""path"": ""<DualShockGamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TapR"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""392400ee-2287-4b6c-84cd-21649c2ad526"",
+                    ""path"": ""<DualShockGamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UpL"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fcb13416-c042-4925-9db0-03de4a562ea8"",
+                    ""path"": ""<DualShockGamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UpR"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""91411a07-9ff7-4562-bec8-6f84170a3cf2"",
+                    ""path"": ""<DualShockGamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HoldL"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""634a9ebc-52a2-444b-b4d0-2c93ab3ad1cd"",
+                    ""path"": ""<DualShockGamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HoldR"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -612,6 +772,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_InGame_Up3 = m_InGame.FindAction("Up3", throwIfNotFound: true);
         m_InGame_Up4 = m_InGame.FindAction("Up4", throwIfNotFound: true);
         m_InGame_Up5 = m_InGame.FindAction("Up5", throwIfNotFound: true);
+        m_InGame_BarLeft = m_InGame.FindAction("BarLeft", throwIfNotFound: true);
+        m_InGame_BarRight = m_InGame.FindAction("BarRight", throwIfNotFound: true);
+        m_InGame_TapL = m_InGame.FindAction("TapL", throwIfNotFound: true);
+        m_InGame_TapR = m_InGame.FindAction("TapR", throwIfNotFound: true);
+        m_InGame_HoldL = m_InGame.FindAction("HoldL", throwIfNotFound: true);
+        m_InGame_HoldR = m_InGame.FindAction("HoldR", throwIfNotFound: true);
+        m_InGame_UpL = m_InGame.FindAction("UpL", throwIfNotFound: true);
+        m_InGame_UpR = m_InGame.FindAction("UpR", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -691,6 +859,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_Up3;
     private readonly InputAction m_InGame_Up4;
     private readonly InputAction m_InGame_Up5;
+    private readonly InputAction m_InGame_BarLeft;
+    private readonly InputAction m_InGame_BarRight;
+    private readonly InputAction m_InGame_TapL;
+    private readonly InputAction m_InGame_TapR;
+    private readonly InputAction m_InGame_HoldL;
+    private readonly InputAction m_InGame_HoldR;
+    private readonly InputAction m_InGame_UpL;
+    private readonly InputAction m_InGame_UpR;
     public struct InGameActions
     {
         private @PlayerInput m_Wrapper;
@@ -713,6 +889,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Up3 => m_Wrapper.m_InGame_Up3;
         public InputAction @Up4 => m_Wrapper.m_InGame_Up4;
         public InputAction @Up5 => m_Wrapper.m_InGame_Up5;
+        public InputAction @BarLeft => m_Wrapper.m_InGame_BarLeft;
+        public InputAction @BarRight => m_Wrapper.m_InGame_BarRight;
+        public InputAction @TapL => m_Wrapper.m_InGame_TapL;
+        public InputAction @TapR => m_Wrapper.m_InGame_TapR;
+        public InputAction @HoldL => m_Wrapper.m_InGame_HoldL;
+        public InputAction @HoldR => m_Wrapper.m_InGame_HoldR;
+        public InputAction @UpL => m_Wrapper.m_InGame_UpL;
+        public InputAction @UpR => m_Wrapper.m_InGame_UpR;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -776,6 +960,30 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Up5.started += instance.OnUp5;
             @Up5.performed += instance.OnUp5;
             @Up5.canceled += instance.OnUp5;
+            @BarLeft.started += instance.OnBarLeft;
+            @BarLeft.performed += instance.OnBarLeft;
+            @BarLeft.canceled += instance.OnBarLeft;
+            @BarRight.started += instance.OnBarRight;
+            @BarRight.performed += instance.OnBarRight;
+            @BarRight.canceled += instance.OnBarRight;
+            @TapL.started += instance.OnTapL;
+            @TapL.performed += instance.OnTapL;
+            @TapL.canceled += instance.OnTapL;
+            @TapR.started += instance.OnTapR;
+            @TapR.performed += instance.OnTapR;
+            @TapR.canceled += instance.OnTapR;
+            @HoldL.started += instance.OnHoldL;
+            @HoldL.performed += instance.OnHoldL;
+            @HoldL.canceled += instance.OnHoldL;
+            @HoldR.started += instance.OnHoldR;
+            @HoldR.performed += instance.OnHoldR;
+            @HoldR.canceled += instance.OnHoldR;
+            @UpL.started += instance.OnUpL;
+            @UpL.performed += instance.OnUpL;
+            @UpL.canceled += instance.OnUpL;
+            @UpR.started += instance.OnUpR;
+            @UpR.performed += instance.OnUpR;
+            @UpR.canceled += instance.OnUpR;
         }
 
         private void UnregisterCallbacks(IInGameActions instance)
@@ -834,6 +1042,30 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Up5.started -= instance.OnUp5;
             @Up5.performed -= instance.OnUp5;
             @Up5.canceled -= instance.OnUp5;
+            @BarLeft.started -= instance.OnBarLeft;
+            @BarLeft.performed -= instance.OnBarLeft;
+            @BarLeft.canceled -= instance.OnBarLeft;
+            @BarRight.started -= instance.OnBarRight;
+            @BarRight.performed -= instance.OnBarRight;
+            @BarRight.canceled -= instance.OnBarRight;
+            @TapL.started -= instance.OnTapL;
+            @TapL.performed -= instance.OnTapL;
+            @TapL.canceled -= instance.OnTapL;
+            @TapR.started -= instance.OnTapR;
+            @TapR.performed -= instance.OnTapR;
+            @TapR.canceled -= instance.OnTapR;
+            @HoldL.started -= instance.OnHoldL;
+            @HoldL.performed -= instance.OnHoldL;
+            @HoldL.canceled -= instance.OnHoldL;
+            @HoldR.started -= instance.OnHoldR;
+            @HoldR.performed -= instance.OnHoldR;
+            @HoldR.canceled -= instance.OnHoldR;
+            @UpL.started -= instance.OnUpL;
+            @UpL.performed -= instance.OnUpL;
+            @UpL.canceled -= instance.OnUpL;
+            @UpR.started -= instance.OnUpR;
+            @UpR.performed -= instance.OnUpR;
+            @UpR.canceled -= instance.OnUpR;
         }
 
         public void RemoveCallbacks(IInGameActions instance)
@@ -871,5 +1103,13 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnUp3(InputAction.CallbackContext context);
         void OnUp4(InputAction.CallbackContext context);
         void OnUp5(InputAction.CallbackContext context);
+        void OnBarLeft(InputAction.CallbackContext context);
+        void OnBarRight(InputAction.CallbackContext context);
+        void OnTapL(InputAction.CallbackContext context);
+        void OnTapR(InputAction.CallbackContext context);
+        void OnHoldL(InputAction.CallbackContext context);
+        void OnHoldR(InputAction.CallbackContext context);
+        void OnUpL(InputAction.CallbackContext context);
+        void OnUpR(InputAction.CallbackContext context);
     }
 }

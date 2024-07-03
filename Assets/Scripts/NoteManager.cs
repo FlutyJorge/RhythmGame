@@ -35,7 +35,6 @@ public class NoteManager : MonoBehaviour
     public List<GameObject> nNote = new List<GameObject>(); //ノーマルノーツ
     public List<GameObject> lNote3 = new List<GameObject>(); //ロングノーツの始点
     public List<GameObject> lNote4 = new List<GameObject>(); //ロングノーツの終点
-    //public List<LineRenderer> lineRen = new List<LineRenderer>();
 
     private float noteSpeed;
     [SerializeField] float selfOffset;
