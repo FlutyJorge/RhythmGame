@@ -8,6 +8,7 @@ public class JudgeManager : MonoBehaviour
     public NoteManager noteMana;
     private JudgeRunnerN jRunnerN;
     private JudgeRunnerS jRunnerS;
+    [SerializeField] GameObject canvas;
     [SerializeField] GameObject[] messageObj;
     [SerializeField] TextMeshProUGUI comboText;
     [SerializeField] TextMeshProUGUI scoreText;
@@ -25,6 +26,7 @@ public class JudgeManager : MonoBehaviour
         {
             return;
         }
+
 
         if (isNormal)
         {
@@ -128,8 +130,13 @@ public class JudgeManager : MonoBehaviour
 
     public void SetMessage(int messageIdx, int noteIdx)
     {
-        Vector3 messagePos = new Vector3((noteMana.LaneNum[noteIdx] - 2.5f) * 2, -3.5f, 0);
-        Instantiate(messageObj[messageIdx], messagePos, Quaternion.identity);
+        GameObject messagePref = (GameObject)Instantiate(messageObj[messageIdx]);
+        messagePref.transform.SetParent(canvas.transform, true);
+
+        //ワールド座標でx座標を指定。y座標はAnimationのRectTransformで指定。
+        Vector3 messagePos = new Vector3((noteMana.LaneNum[noteIdx] - 2.5f) * 2, 0, 0);
+        messagePref.transform.position = messagePos;
+
     }
 
     public void DeleteData(int noteIndx)

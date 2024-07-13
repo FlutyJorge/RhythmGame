@@ -28,6 +28,7 @@ public class NoteManager : MonoBehaviour
 
     public int noteNum; //総ノーツ数
     private string songName;
+    [HideInInspector] public float timePerBeat;
 
     public List<int> LaneNum = new List<int>(); //何番のレーンにノーツが落ちてくるか
     public List<int> NoteType = new List<int>(); //1:ノーマルノーツ, 2:ホールドノーツ, 3:ロングノーツの始点, 4:ロングノーツの終点
@@ -35,6 +36,7 @@ public class NoteManager : MonoBehaviour
     public List<GameObject> nNote = new List<GameObject>(); //ノーマルノーツ
     public List<GameObject> lNote3 = new List<GameObject>(); //ロングノーツの始点
     public List<GameObject> lNote4 = new List<GameObject>(); //ロングノーツの終点
+    private bool[] laneChecker = new bool[6] { false, false, false, false, false, false };
 
     private float noteSpeed;
     [SerializeField] float selfOffset;
@@ -59,9 +61,11 @@ public class NoteManager : MonoBehaviour
         //総ノーツ数の設定
         noteNum = inputJson.notes.Length;
 
-        //ノーツの生成
+        Array.Sort(inputJson.notes, (a, b) => a.num - b.num);
 
-        float timePerBeat = 60f / (float)inputJson.BPM; //1拍(1ビート)にかかる時間
+        timePerBeat = 60f / (float)inputJson.BPM; //1拍(1ビート)にかかる時間
+
+        //ノーツの時間計算
         for (int i = 0; i < noteNum; ++i)
         {
             float beatNum = inputJson.notes[i].num / (float)inputJson.notes[i].LPB; //ノーツが何拍目にあるか。
@@ -71,8 +75,19 @@ public class NoteManager : MonoBehaviour
             LaneNum.Add(inputJson.notes[i].block);
             NoteType.Add(inputJson.notes[i].type);
 
-            float y = NotesTime[i] * noteSpeed - 4;
+            //ロングノーツ始点のタイプ書き換え
+            if (NoteType[i] == 2 && !laneChecker[LaneNum[i]])
+            {
+                NoteType[i] = 3;
+                laneChecker[LaneNum[i]] = true;
+            }
+            else if(NoteType[i] == 4 && laneChecker[LaneNum[i]])
+            {
+                laneChecker[LaneNum[i]] = false;
+            }
 
+            //ノーツの生成
+            float y = NotesTime[i] * noteSpeed - 4;
             if (NoteType[i] == 1)
             {
                 nNote.Add(Instantiate(nNotePrefab, new Vector3((LaneNum[i] - 2.5f) * 2, y, 0), Quaternion.identity));
@@ -88,7 +103,6 @@ public class NoteManager : MonoBehaviour
         }
 
         //ロングノーツの帯部分生成
-
         int lNote3Counter = 0;
         for (int i = 0; i < noteNum; ++i)
         {
