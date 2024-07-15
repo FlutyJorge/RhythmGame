@@ -726,6 +726,74 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "OutGame",
+            "id": "0f61f13f-5a07-49c3-b9d8-44decde21c3c",
+            "actions": [
+                {
+                    "name": "StartPress",
+                    "type": "Button",
+                    "id": "72388466-f618-4999-927f-c3f759c9513a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "StartRelease",
+                    "type": "Button",
+                    "id": "62161d04-e645-4d65-85ee-28e210c50101",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Select",
+                    "type": "Button",
+                    "id": "747b9432-03a4-47ed-a6e1-2a348aa8f251",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d382e17f-4c31-4bc5-bbc8-895a112ad647",
+                    "path": "<DualShockGamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StartPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "53527e48-0b8e-4d8c-8cc1-ddfb86aa58aa",
+                    "path": "<DualShockGamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StartRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "80180d1f-2084-4d54-b606-c11c43683364",
+                    "path": "<DualShockGamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

@@ -748,6 +748,74 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""OutGame"",
+            ""id"": ""0f61f13f-5a07-49c3-b9d8-44decde21c3c"",
+            ""actions"": [
+                {
+                    ""name"": ""StartPress"",
+                    ""type"": ""Button"",
+                    ""id"": ""72388466-f618-4999-927f-c3f759c9513a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""StartRelease"",
+                    ""type"": ""Button"",
+                    ""id"": ""62161d04-e645-4d65-85ee-28e210c50101"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""747b9432-03a4-47ed-a6e1-2a348aa8f251"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""d382e17f-4c31-4bc5-bbc8-895a112ad647"",
+                    ""path"": ""<DualShockGamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""StartPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""53527e48-0b8e-4d8c-8cc1-ddfb86aa58aa"",
+                    ""path"": ""<DualShockGamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""StartRelease"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""80180d1f-2084-4d54-b606-c11c43683364"",
+                    ""path"": ""<DualShockGamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -780,6 +848,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_InGame_HoldR = m_InGame.FindAction("HoldR", throwIfNotFound: true);
         m_InGame_UpL = m_InGame.FindAction("UpL", throwIfNotFound: true);
         m_InGame_UpR = m_InGame.FindAction("UpR", throwIfNotFound: true);
+        // OutGame
+        m_OutGame = asset.FindActionMap("OutGame", throwIfNotFound: true);
+        m_OutGame_StartPress = m_OutGame.FindAction("StartPress", throwIfNotFound: true);
+        m_OutGame_StartRelease = m_OutGame.FindAction("StartRelease", throwIfNotFound: true);
+        m_OutGame_Select = m_OutGame.FindAction("Select", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1083,6 +1156,68 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         }
     }
     public InGameActions @InGame => new InGameActions(this);
+
+    // OutGame
+    private readonly InputActionMap m_OutGame;
+    private List<IOutGameActions> m_OutGameActionsCallbackInterfaces = new List<IOutGameActions>();
+    private readonly InputAction m_OutGame_StartPress;
+    private readonly InputAction m_OutGame_StartRelease;
+    private readonly InputAction m_OutGame_Select;
+    public struct OutGameActions
+    {
+        private @PlayerInput m_Wrapper;
+        public OutGameActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @StartPress => m_Wrapper.m_OutGame_StartPress;
+        public InputAction @StartRelease => m_Wrapper.m_OutGame_StartRelease;
+        public InputAction @Select => m_Wrapper.m_OutGame_Select;
+        public InputActionMap Get() { return m_Wrapper.m_OutGame; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(OutGameActions set) { return set.Get(); }
+        public void AddCallbacks(IOutGameActions instance)
+        {
+            if (instance == null || m_Wrapper.m_OutGameActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_OutGameActionsCallbackInterfaces.Add(instance);
+            @StartPress.started += instance.OnStartPress;
+            @StartPress.performed += instance.OnStartPress;
+            @StartPress.canceled += instance.OnStartPress;
+            @StartRelease.started += instance.OnStartRelease;
+            @StartRelease.performed += instance.OnStartRelease;
+            @StartRelease.canceled += instance.OnStartRelease;
+            @Select.started += instance.OnSelect;
+            @Select.performed += instance.OnSelect;
+            @Select.canceled += instance.OnSelect;
+        }
+
+        private void UnregisterCallbacks(IOutGameActions instance)
+        {
+            @StartPress.started -= instance.OnStartPress;
+            @StartPress.performed -= instance.OnStartPress;
+            @StartPress.canceled -= instance.OnStartPress;
+            @StartRelease.started -= instance.OnStartRelease;
+            @StartRelease.performed -= instance.OnStartRelease;
+            @StartRelease.canceled -= instance.OnStartRelease;
+            @Select.started -= instance.OnSelect;
+            @Select.performed -= instance.OnSelect;
+            @Select.canceled -= instance.OnSelect;
+        }
+
+        public void RemoveCallbacks(IOutGameActions instance)
+        {
+            if (m_Wrapper.m_OutGameActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IOutGameActions instance)
+        {
+            foreach (var item in m_Wrapper.m_OutGameActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_OutGameActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public OutGameActions @OutGame => new OutGameActions(this);
     public interface IInGameActions
     {
         void OnTap0(InputAction.CallbackContext context);
@@ -1111,5 +1246,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnHoldR(InputAction.CallbackContext context);
         void OnUpL(InputAction.CallbackContext context);
         void OnUpR(InputAction.CallbackContext context);
+    }
+    public interface IOutGameActions
+    {
+        void OnStartPress(InputAction.CallbackContext context);
+        void OnStartRelease(InputAction.CallbackContext context);
+        void OnSelect(InputAction.CallbackContext context);
     }
 }
