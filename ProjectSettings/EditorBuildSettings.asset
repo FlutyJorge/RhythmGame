@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Scenes/Title.unity
+    guid: e90c8481f031ed944b911bd472b91172
+  - enabled: 1
+    path: Assets/Scenes/CrossFire.unity
+    guid: dd327f60495ae424aa888496642f0db3
   m_configObjects: {}

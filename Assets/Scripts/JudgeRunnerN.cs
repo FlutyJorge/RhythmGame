@@ -7,7 +7,10 @@ public class JudgeRunnerN : MonoBehaviour
 {
     private NoteManager noteMana;
     private JudgeManager judgeMana;
+
     private int maxLaneNum = 6;
+
+    //プレイヤーの入力装置
     private PlayerInput playerInput;
     private InputAction[] tapInput = new InputAction[6];
     private InputAction[] holdInput = new InputAction[6];

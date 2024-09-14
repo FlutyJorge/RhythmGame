@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
 //jsonファイルを読み込むための受け皿
+[Serializable]
 public class Data
 {
     public string name;
@@ -25,31 +25,49 @@ public class Notes
 
 public class NoteManager : MonoBehaviour
 {
+    [Header("アタッチ&パラメータ")]
+    [SerializeField] FadeManager fadeMana;
+    [SerializeField] GameObject nNotePrefab; //ノーマルノーツのプレハブ
+    [SerializeField] GameObject lNotePrefab; //ロングノーツのプレハブ
+    [SerializeField] string songName;
+    public float startOffset;
+    [SerializeField] float selfOffset;
 
+    [Space(15)]
+
+    [Header("ノーツ情報")]
     public int noteNum; //総ノーツ数
-    private string songName;
-    [HideInInspector] public float timePerBeat;
-
     public List<int> LaneNum = new List<int>(); //何番のレーンにノーツが落ちてくるか
     public List<int> NoteType = new List<int>(); //1:ノーマルノーツ, 2:ホールドノーツ, 3:ロングノーツの始点, 4:ロングノーツの終点
     public List<float> NotesTime = new List<float>(); //ノーツが判定線と重なる時間
     public List<GameObject> nNote = new List<GameObject>(); //ノーマルノーツ
     public List<GameObject> lNote3 = new List<GameObject>(); //ロングノーツの始点
     public List<GameObject> lNote4 = new List<GameObject>(); //ロングノーツの終点
+
+    //ロングノーツ始点タイプ番号書き換えに用いる
     private bool[] laneChecker = new bool[6] { false, false, false, false, false, false };
 
     private float noteSpeed;
-    [SerializeField] float selfOffset;
-    [SerializeField] GameObject nNotePrefab; //ノーマルノーツのプレハブ
-    [SerializeField] GameObject lNotePrefab; //ロングノーツのプレハブ
+    [HideInInspector] public float timePerBeat;
 
-    private void Start()
+    //曲終了時に使用
+    private bool isSongEnd = false;
+
+    private void Awake()
     {
         noteSpeed = GManager.instance.noteSpeed;
         noteNum = 0;
-        songName = "Shangri-La of Neko";
 
         Load(songName);
+    }
+
+    private void Update()
+    {
+        if (!isSongEnd && NotesTime.Count == 0)
+        {
+            isSongEnd = true;
+            StartCoroutine(fadeMana.FadeAndChangeScene(5f, 0));
+        }
     }
 
     private void Load(string SongName)
@@ -69,7 +87,7 @@ public class NoteManager : MonoBehaviour
         for (int i = 0; i < noteNum; ++i)
         {
             float beatNum = inputJson.notes[i].num / (float)inputJson.notes[i].LPB; //ノーツが何拍目にあるか。
-            float time = beatNum * timePerBeat + selfOffset * 0.01f; ; //ノーツが判定ラインにたどり着くまでに要する時間
+            float time = (beatNum + startOffset) * timePerBeat + selfOffset * 0.01f; ; //ノーツが判定ラインにたどり着くまでに要する時間
 
             NotesTime.Add(time);
             LaneNum.Add(inputJson.notes[i].block);
@@ -87,7 +105,7 @@ public class NoteManager : MonoBehaviour
             }
 
             //ノーツの生成
-            float y = NotesTime[i] * noteSpeed - 4;
+            float y = NotesTime[i] * noteSpeed - 4; //なぜ4引いてる？
             if (NoteType[i] == 1)
             {
                 nNote.Add(Instantiate(nNotePrefab, new Vector3((LaneNum[i] - 2.5f) * 2, y, 0), Quaternion.identity));

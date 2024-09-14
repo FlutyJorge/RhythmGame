@@ -5,17 +5,23 @@ using UnityEngine.InputSystem;
 
 public class JudgeRunnerS : MonoBehaviour
 {
-    private JudgeManager judgeMana;
-    private NoteManager noteMana;
-    private PlayerInput playerInput;
+    [Header("アタッチ")]
     [SerializeField] GameObject barL;
     [SerializeField] GameObject barR;
+
+    private JudgeManager judgeMana;
+    private NoteManager noteMana;
+
+    private int maxLaneNum = 6;
+
+    private PlayerInput playerInput;
     private InputAction tapL;
     private InputAction tapR;
     private InputAction holdL;
     private InputAction holdR;
     private InputAction upL;
     private InputAction upR;
+
     private float[] barArea = { -6, -4, -2, 0, 2, 4, 6 };
 
     // Start is called before the first frame update
@@ -45,14 +51,14 @@ public class JudgeRunnerS : MonoBehaviour
             return;
         }
 
-        for (int i = 0; i < 6; ++i)
+        for (int i = 0; i < maxLaneNum; ++i)
         {
             if (noteMana.LaneNum.Count <= i)
             {
                 break;
             }
 
-            if (noteMana.NoteType[i] != 1 && noteMana.NoteType[i] != 3)
+            if (noteMana.NoteType[i] == 2 || noteMana.NoteType[i] == 4)
             {
                 continue;
             }
@@ -86,7 +92,6 @@ public class JudgeRunnerS : MonoBehaviour
 
             if (noteMana.NoteType[i] != 2)
             {
-                Debug.Log("コンティニュー");
                 continue;
             }
 
