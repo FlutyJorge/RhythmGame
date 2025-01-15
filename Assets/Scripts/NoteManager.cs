@@ -139,7 +139,7 @@ public class NoteManager : MonoBehaviour
                     Vector3 startPos = new Vector3(0, 0, 0);
                     float endPosY = NotesTime[j] * noteSpeed - 4;
                     //プレハブのYスケールが0.4のため、2.5をかけて1に戻している
-                    Vector3 endPos = (new Vector3(0, endPosY, 0) - new Vector3(0, startObj.transform.position.y, 0)) * 2.5f;
+                    Vector3 endPos = (new Vector3(0, endPosY, 0) - new Vector3(0, startObj.transform.position.y, 0));
 
                     lineRen.SetPosition(0, startPos);
                     lineRen.SetPosition(1, endPos);

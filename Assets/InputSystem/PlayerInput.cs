@@ -779,6 +779,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""StartSong"",
+                    ""type"": ""Button"",
+                    ""id"": ""ae42323f-9990-4612-ac17-cbde51eec1be"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -858,6 +867,39 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""65b84805-c654-4066-8d3b-b702d5772f04"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""StartSong"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""40bd030c-b70a-4d5f-b114-ab5785c1ea81"",
+                    ""path"": ""<DualShockGamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""StartSong"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""82aadd3e-02d9-46c0-b1b3-52bd859fe019"",
+                    ""path"": ""<DualShockGamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""StartSong"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -897,6 +939,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_OutGame_StartPress = m_OutGame.FindAction("StartPress", throwIfNotFound: true);
         m_OutGame_StartRelease = m_OutGame.FindAction("StartRelease", throwIfNotFound: true);
         m_OutGame_Select = m_OutGame.FindAction("Select", throwIfNotFound: true);
+        m_OutGame_StartSong = m_OutGame.FindAction("StartSong", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1207,6 +1250,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_OutGame_StartPress;
     private readonly InputAction m_OutGame_StartRelease;
     private readonly InputAction m_OutGame_Select;
+    private readonly InputAction m_OutGame_StartSong;
     public struct OutGameActions
     {
         private @PlayerInput m_Wrapper;
@@ -1214,6 +1258,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @StartPress => m_Wrapper.m_OutGame_StartPress;
         public InputAction @StartRelease => m_Wrapper.m_OutGame_StartRelease;
         public InputAction @Select => m_Wrapper.m_OutGame_Select;
+        public InputAction @StartSong => m_Wrapper.m_OutGame_StartSong;
         public InputActionMap Get() { return m_Wrapper.m_OutGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1232,6 +1277,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Select.started += instance.OnSelect;
             @Select.performed += instance.OnSelect;
             @Select.canceled += instance.OnSelect;
+            @StartSong.started += instance.OnStartSong;
+            @StartSong.performed += instance.OnStartSong;
+            @StartSong.canceled += instance.OnStartSong;
         }
 
         private void UnregisterCallbacks(IOutGameActions instance)
@@ -1245,6 +1293,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Select.started -= instance.OnSelect;
             @Select.performed -= instance.OnSelect;
             @Select.canceled -= instance.OnSelect;
+            @StartSong.started -= instance.OnStartSong;
+            @StartSong.performed -= instance.OnStartSong;
+            @StartSong.canceled -= instance.OnStartSong;
         }
 
         public void RemoveCallbacks(IOutGameActions instance)
@@ -1296,5 +1347,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnStartPress(InputAction.CallbackContext context);
         void OnStartRelease(InputAction.CallbackContext context);
         void OnSelect(InputAction.CallbackContext context);
+        void OnStartSong(InputAction.CallbackContext context);
     }
 }

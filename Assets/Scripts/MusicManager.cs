@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.InputSystem;
 using DG.Tweening;
 
 public class MusicManager : MonoBehaviour
@@ -11,10 +12,13 @@ public class MusicManager : MonoBehaviour
     [SerializeField] NoteManager noteMana;
     [SerializeField] string songName;
     [SerializeField] Image startPanel;
-    [SerializeField] TextMeshProUGUI songNameTx;
+    [SerializeField] TextMeshProUGUI startTx;
 
     private AudioSource audioS;
     private AudioClip music;
+
+    private PlayerInput playerInput;
+    private InputAction startSongInput;
 
     [HideInInspector] public bool isPlayed;
 
@@ -25,12 +29,16 @@ public class MusicManager : MonoBehaviour
         music = (AudioClip)Resources.Load("Musics/" + songName);
         audioS.clip = music;
         isPlayed = false;
+
+        playerInput = new PlayerInput();
+        playerInput.Enable();
+        startSongInput = playerInput.OutGame.StartSong;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isPlayed)
+        if (/*Input.GetKeyDown(KeyCode.Space)*/startSongInput.triggered && !isPlayed)
         {
             StartCoroutine(StartGame());
         }
@@ -40,7 +48,7 @@ public class MusicManager : MonoBehaviour
     {
         isPlayed = true;
         startPanel.DOFade(0, 1);
-        songNameTx.DOFade(0, 1);
+        startTx.DOFade(0, 1);
 
         yield return new WaitForSeconds(1);
 
