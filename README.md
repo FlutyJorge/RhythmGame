@@ -7,7 +7,9 @@
 exeファイル形式でダウンロードも可能なので、コントローラーを持っている人はぜひ遊んでみてください。
 
 ## ゲームダウンロードリンク
-https://drive.google.com/drive/u/0/my-drive?hl=ja
+https://drive.google.com/drive/u/0/my-drive?hl=ja  
+zipファイルを展開後、RhythmGame.exeをクリックすると遊べます。  
+(プレステコントローラーの接続をお忘れなく！)
 
 
 ## 制作にあたって使用したソフト
